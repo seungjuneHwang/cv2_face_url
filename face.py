@@ -78,34 +78,36 @@ def visualize_facial_landmarks(image, shape, colors=None, alpha=0.75):
     print(facial_features_cordinates)
     return output
 
-# 사용자 입력 받기
-print('관상을 보고 싶은 이미지 URL을 입력하세요')
-url = input('입력: ')
-# initialize dlib's face detector (HOG-based) and then create
-# the facial landmark predictor
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+def face_func(url):
+    # 사용자 입력 받기
+    # print('관상을 보고 싶은 이미지 URL을 입력하세요')
+    # url = input('입력: ')
+    # initialize dlib's face detector (HOG-based) and then create
+    # the facial landmark predictor
+    detector = dlib.get_frontal_face_detector()
+    predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-# url = "https://blog.kakaocdn.net/dn/bfsErb/btrgA5ljO5d/8PQ5EAMbrrgcnWsOqgf3y1/img.jpg"
-# res = request.urlopen(url).read()
-# load the input image, resize it, and convert it to grayscale
-# image = cv2.imread(res)
+    # url = "https://blog.kakaocdn.net/dn/bfsErb/btrgA5ljO5d/8PQ5EAMbrrgcnWsOqgf3y1/img.jpg"
+    # res = request.urlopen(url).read()
+    # load the input image, resize it, and convert it to grayscale
+    # image = cv2.imread(res)
 
-# URL 이미지 보여주기
-image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
-image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
+    # URL 이미지 보여주기
+    image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
+    image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
 
-image = imutils.resize(image, width=500)
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = imutils.resize(image, width=500)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# detect faces in the grayscale image
-rects = detector(gray, 1)
-# loop over the face detections
-for (i, rect) in enumerate(rects):
-    # determine the facial landmarks for the face region, then
-    # convert the landmark (x, y)-coordinates to a NumPy array
-    shape = predictor(gray, rect)
-    shape = shape_to_numpy_array(shape)
-    output = visualize_facial_landmarks(image, shape)
-    cv2.imshow("Image", output)
-    cv2.waitKey(0)
+    # detect faces in the grayscale image
+    rects = detector(gray, 1)
+    # loop over the face detections
+    for (i, rect) in enumerate(rects):
+        # determine the facial landmarks for the face region, then
+        # convert the landmark (x, y)-coordinates to a NumPy array
+        shape = predictor(gray, rect)
+        shape = shape_to_numpy_array(shape)
+        output = visualize_facial_landmarks(image, shape)
+        # cv2.imshow("Image", output)
+        cv2.imwrite('face.png',output)
+        cv2.waitKey(0)

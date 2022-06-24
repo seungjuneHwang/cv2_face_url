@@ -109,5 +109,5 @@ def face_func(url):
         shape = shape_to_numpy_array(shape)
         output = visualize_facial_landmarks(image, shape)
         # cv2.imshow("Image", output)
-        cv2.imwrite('face.png',output)
+        cv2.imwrite('static/img/face.png',output)
         cv2.waitKey(0)

@@ -78,13 +78,15 @@ def visualize_facial_landmarks(image, shape, colors=None, alpha=0.75):
     print(facial_features_cordinates)
     return output
 
-
+# 사용자 입력 받기
+print('관상을 보고 싶은 이미지 URL을 입력하세요')
+url = input('입력: ')
 # initialize dlib's face detector (HOG-based) and then create
 # the facial landmark predictor
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-url = "https://cdn.fastpick.co.kr/fastpick/2021/03/image_2322861011616642090118.png"
+# url = "https://blog.kakaocdn.net/dn/bfsErb/btrgA5ljO5d/8PQ5EAMbrrgcnWsOqgf3y1/img.jpg"
 # res = request.urlopen(url).read()
 # load the input image, resize it, and convert it to grayscale
 # image = cv2.imread(res)

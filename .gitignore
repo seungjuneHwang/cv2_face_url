@@ -1,4 +1,5 @@
 env/
 *.dat
+*.pyc
 kim.jpg
 test.py
